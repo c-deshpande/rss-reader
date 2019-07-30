@@ -1,14 +1,15 @@
 package com.c4l1ber.rssreader.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.c4l1ber.rssreader.Activities.WebViewActivity;
 import com.c4l1ber.rssreader.DataModel.RSSItem;
 import com.c4l1ber.rssreader.R;
 
@@ -36,23 +37,6 @@ public class RSSAdapter extends RecyclerView.Adapter<RSSAdapter.ViewHolder> {
             txtTitle = itemView.findViewById(R.id.txtTitle);
             txtDate = itemView.findViewById(R.id.txtDate);
             txtContent = itemView.findViewById(R.id.txtContent);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Toast.makeText(mContext, getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-
-                    Toast.makeText(mContext, "Long pressed: "+getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-            });
         }
     }
 
@@ -65,11 +49,23 @@ public class RSSAdapter extends RecyclerView.Adapter<RSSAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
 
         viewHolder.txtTitle.setText(rssItems.get(i).getTitle());
         viewHolder.txtDate.setText(rssItems.get(i).getPubDate());
         viewHolder.txtContent.setText(rssItems.get(i).getContent());
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(mContext, WebViewActivity.class);
+                intent.putExtra("Title", rssItems.get(i).getTitle());
+                intent.putExtra("URL", rssItems.get(i).getGuid());
+                mContext.startActivity(intent);
+
+            }
+        });
     }
 
     @Override
