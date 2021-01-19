@@ -10,7 +10,7 @@ Used <a href="https://rss2json.com/">rss2json</a> to convert RSS to JSON respons
 Used <a href="https://square.github.io/retrofit/">Retrofit</a> for Networking.
 
 <div>
-<img src="https://github.com/c-deshpande/rss-reader/blob/master/app/app_screens/Screenshot_1602286064.png" width="200" hspace="20"/>
+<img src="https://github.com/c-deshpande/rss-reader/blob/master/app/app_screens/Screenshot_1611066069.png" width="200" hspace="20"/>
 
-<img src="https://github.com/c-deshpande/rss-reader/blob/master/app/app_screens/Screenshot_1602286101.png" width="200"/>
+<img src="https://github.com/c-deshpande/rss-reader/blob/master/app/app_screens/Screenshot_1611066082.png" width="200"/>
 </div>
