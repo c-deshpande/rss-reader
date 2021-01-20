@@ -1,6 +1,6 @@
-package com.c4l1ber.rssreader.Networking;
+package com.c4l1ber.rssreader.networking;
 
-import com.c4l1ber.rssreader.DataModel.RSSItem;
+import com.c4l1ber.rssreader.data.RSSItem;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

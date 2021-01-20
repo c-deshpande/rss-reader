@@ -1,4 +1,4 @@
-package com.c4l1ber.rssreader.DataModel;
+package com.c4l1ber.rssreader.data;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -1,16 +1,20 @@
-package com.c4l1ber.rssreader.Adapter;
+package com.c4l1ber.rssreader.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.c4l1ber.rssreader.Activities.WebViewActivity;
-import com.c4l1ber.rssreader.DataModel.RSSItem;
+import com.bumptech.glide.Glide;
+import com.c4l1ber.rssreader.activities.WebViewActivity;
+import com.c4l1ber.rssreader.data.RSSItem;
 import com.c4l1ber.rssreader.R;
 
 import java.util.List;
@@ -30,6 +34,7 @@ public class RSSAdapter extends RecyclerView.Adapter<RSSAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtTitle, txtDate, txtContent;
+        ImageView imgNews;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -37,6 +42,7 @@ public class RSSAdapter extends RecyclerView.Adapter<RSSAdapter.ViewHolder> {
             txtTitle = itemView.findViewById(R.id.txtTitle);
             txtDate = itemView.findViewById(R.id.txtDate);
             txtContent = itemView.findViewById(R.id.txtContent);
+            imgNews = itemView.findViewById(R.id.imgNews);
         }
     }
 
@@ -49,22 +55,24 @@ public class RSSAdapter extends RecyclerView.Adapter<RSSAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, @SuppressLint("RecyclerView") final int i) {
+
+        String date = rssItems.get(i).getPubDate().split(" ")[0];
+        String time = rssItems.get(i).getPubDate().split(" ")[1];
+        String author = rssItems.get(i).getAuthor();
 
         viewHolder.txtTitle.setText(rssItems.get(i).getTitle());
-        viewHolder.txtDate.setText(rssItems.get(i).getPubDate());
+        viewHolder.txtDate.setText(date + " at " + time + " by " + author);
         viewHolder.txtContent.setText(rssItems.get(i).getContent());
+        Glide.with(mContext).load(rssItems.get(i).getEnclosure().getLink()).into(viewHolder.imgNews);
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        viewHolder.itemView.setOnClickListener(v -> {
 
-                Intent intent = new Intent(mContext, WebViewActivity.class);
-                intent.putExtra("Title", rssItems.get(i).getTitle());
-                intent.putExtra("URL", rssItems.get(i).getGuid());
-                mContext.startActivity(intent);
+            Intent intent = new Intent(mContext, WebViewActivity.class);
+            intent.putExtra("Title", rssItems.get(i).getTitle());
+            intent.putExtra("URL", rssItems.get(i).getGuid());
+            mContext.startActivity(intent);
 
-            }
         });
     }
 

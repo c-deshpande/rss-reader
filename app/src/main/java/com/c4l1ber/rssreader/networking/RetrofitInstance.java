@@ -1,4 +1,4 @@
-package com.c4l1ber.rssreader.Networking;
+package com.c4l1ber.rssreader.networking;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

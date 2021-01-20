@@ -1,18 +1,18 @@
-package com.c4l1ber.rssreader.Activities;
+package com.c4l1ber.rssreader.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.c4l1ber.rssreader.Adapter.RSSAdapter;
-import com.c4l1ber.rssreader.DataModel.RSSItem;
-import com.c4l1ber.rssreader.Networking.API;
-import com.c4l1ber.rssreader.Networking.RetrofitInstance;
+import com.c4l1ber.rssreader.adapters.RSSAdapter;
+import com.c4l1ber.rssreader.data.RSSItem;
+import com.c4l1ber.rssreader.networking.API;
+import com.c4l1ber.rssreader.networking.RetrofitInstance;
 import com.c4l1ber.rssreader.R;
 
 import java.util.List;
@@ -37,12 +37,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
 
-                if(menuItem.getItemId() == R.id.btn_refresh) {
+                if (menuItem.getItemId() == R.id.btn_refresh) {
 
                     getFeedData();
                     return true;
-                }
-                else {
+                } else {
 
                     return false;
                 }
@@ -60,13 +59,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<RSSItem> call, Response<RSSItem> response) {
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
 
                     Toast.makeText(MainActivity.this, "Successful response", Toast.LENGTH_SHORT).show();
-                    Log.i(TAG, "rssItemList size: " + response.body().getItems());
                     feedInit(response.body().getItems());
-                }
-                else {
+                } else {
 
                     Toast.makeText(MainActivity.this, "Response failed", Toast.LENGTH_SHORT).show();
                 }
@@ -75,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<RSSItem> call, Throwable t) {
 
-
+                Toast.makeText(MainActivity.this, "No response, check your internet connection", Toast.LENGTH_SHORT).show();
             }
         });
     }
